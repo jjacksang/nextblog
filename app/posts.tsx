@@ -1,4 +1,9 @@
 "use client";
+
+import { Post, PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
 const posts = [
     {
         id: "first post",
@@ -52,8 +57,12 @@ const posts = [
     },
 ];
 
+const fetchPosts = async (): Promise<Post[]> => {
+    const Posts = await prisma.post.findMany();
+    return Posts;
+};
+
 type SortSetting = ["date" | "views", "desc" | "asc"];
-console.log(posts);
 
 export function Posts() {
     return (
@@ -68,12 +77,13 @@ export function Posts() {
     );
 }
 
-function List() {
+async function List() {
+    const posts = await fetchPosts();
     return (
         <section className="flex flex-col font-mono">
-            {posts.map((post) => (
+            {posts.map((post: Post) => (
                 <ul key={post.id} className="flex">
-                    <li className="flex">{post.date}</li>
+                    <li className="flex">{new Date(post.createDate).toLocaleDateString()}</li>
                     <li className="flex grow">{post.title}</li>
                 </ul>
             ))}

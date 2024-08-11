@@ -10,7 +10,8 @@ datasource db {
 
 model Post {
   id         Int      @id @default(autoincrement())
-  createDate DateTime @default(now())
+  createDate DateTime @db.Timestamptz(6)
+  updated_at DateTime? @updatedAt @db.Timestamptz(6)
   title      String   @default("")
   content    String   @default("")
 }
