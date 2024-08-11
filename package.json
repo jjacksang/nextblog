@@ -1,31 +1,32 @@
 {
-  "name": "nextblog",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@prisma/client": "^5.18.0",
-    "@supabase/auth-helpers-nextjs": "^0.10.0",
-    "@supabase/auth-helpers-react": "^0.5.0",
-    "@supabase/supabase-js": "^2.45.1",
-    "next": "14.2.5",
-    "react": "^18",
-    "react-dom": "^18"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.5",
-    "postcss": "^8",
-    "prisma": "^5.18.0",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  }
+    "name": "nextblog",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "postinstall": "prisma generator"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.18.0",
+        "@supabase/auth-helpers-nextjs": "^0.10.0",
+        "@supabase/auth-helpers-react": "^0.5.0",
+        "@supabase/supabase-js": "^2.45.1",
+        "next": "14.2.5",
+        "react": "^18",
+        "react-dom": "^18"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "eslint": "^8",
+        "eslint-config-next": "14.2.5",
+        "postcss": "^8",
+        "prisma": "^5.18.0",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5"
+    }
 }
