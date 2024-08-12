@@ -1,0 +1,18 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "updated_at" TIMESTAMPTZ(6),
+ALTER COLUMN "createDate" DROP DEFAULT,
+ALTER COLUMN "createDate" SET DATA TYPE TIMESTAMPTZ(6),
+ALTER COLUMN "title" SET DEFAULT '',
+ALTER COLUMN "content" SET DEFAULT '';
+
+-- CreateTable
+CREATE TABLE "View" (
+    "id" SERIAL NOT NULL,
+    "postId" INTEGER NOT NULL,
+    "count" INTEGER NOT NULL DEFAULT 1,
+
+    CONSTRAINT "View_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "View" ADD CONSTRAINT "View_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
