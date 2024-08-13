@@ -17,6 +17,29 @@ export function Posts() {
     );
 }
 
+async function createPost() {
+    const response = await fetch(`http://localhost:3001/api/post`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            title: "테스트 제목",
+            content: "테스트 내용입니다.",
+        }),
+    });
+
+    if (response.ok) {
+        const newPost = await response.json();
+        console.log("Post created:", newPost);
+    } else {
+        console.error("Failed to create post");
+    }
+}
+
+// 호출
+createPost();
+
 function List() {
     return (
         <section className="flex flex-col font-mono text-xs">

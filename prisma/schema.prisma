@@ -8,20 +8,18 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// 게시물 테이블
 model Post {
-  id         Int      @id @default(autoincrement())
-  createDate DateTime @default(now()) @db.Timestamptz(6)
+  id         Int       @id @default(autoincrement())
+  createDate DateTime  @default(now()) @db.Timestamptz(6)
+  title      String    @default("")
+  content    String    @default("")
   updated_at DateTime? @updatedAt @db.Timestamptz(6)
-  title      String   @default("")
-  content    String   @default("")
-  views     View[]    @relation("PostToView")
+  views      View[]    @relation("PostToView")
 }
 
-// 조회수 테이블
 model View {
-  id        Int     @id @default(autoincrement())
-  postId    Int     
-  count     Int     @default(1)
-  post      Post    @relation("PostToView", fields: [postId], references: [id])
+  id     Int  @id @default(autoincrement())
+  postId Int
+  count  Int  @default(1)
+  post   Post @relation("PostToView", fields: [postId], references: [id])
 }
