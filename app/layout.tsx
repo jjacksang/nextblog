@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="ko">
             <body className="max-w-2xl m-auto">
-                <main>
+                <main className="p-6">
                     <Header />
                     {children}
                 </main>
