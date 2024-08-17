@@ -2,6 +2,27 @@
 
 import { useState } from "react";
 
+// Post테이블 데이터 생성 테스트 코드
+async function createPost(title: string, content: string) {
+    const response = await fetch(`http://localhost:3000/api/post`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            title: title,
+            content: content,
+        }),
+    });
+
+    if (response.ok) {
+        const newPost = await response.json();
+        console.log("Post created:", newPost);
+    } else {
+        console.error("Failed to create post");
+    }
+}
+
 export function Post() {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
@@ -13,6 +34,13 @@ export function Post() {
     const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
+
+    const onSubmit = () => {
+        createPost(title, content);
+    };
+
+    // 호출
+    // createPost();
     return (
         <div className="flex flex-col gap-2">
             <div className="flex py-4">
@@ -20,7 +48,12 @@ export function Post() {
                     오늘은 어떤 글을 작성하실건가요?
                 </span>
 
-                <button className="border rounded-lg bg-white text-black p-4 py-1">작성</button>
+                <button
+                    className="border rounded-lg bg-white text-black p-4 py-1"
+                    onClick={onSubmit}
+                >
+                    작성
+                </button>
             </div>
             <div className="flex flex-col gap-1">
                 <label htmlFor="title" className="w-full">
