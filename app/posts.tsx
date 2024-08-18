@@ -45,14 +45,10 @@ export function Posts({ posts }: PostProps) {
 // getPosts();
 
 function List({ posts }: PostProps) {
-    const router = useRouter();
-    const handlePostLink = () => {
-        // router.push(<PostContent/>)
-    };
     return (
         <section className="flex flex-col font-mono text-sm">
             {posts.map((post) => (
-                <Link key={post.id} href="/" passHref>
+                <Link key={post.id} href={`/links/${post.id}`} passHref>
                     <ul className="flex pt-3 border-b border-gray-500">
                         <li className="flex">
                             {new Date(post.createDate).toLocaleDateString("ko-KR", {

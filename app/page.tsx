@@ -9,6 +9,7 @@ export interface IPost {
     title: string;
     content: string;
     createDate: Date;
+    update_at?: Date | null;
     views: IView[];
 }
 
