@@ -3,6 +3,8 @@
 import React from "react";
 
 import { IPost } from "./page";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface PostProps {
     posts: IPost[];
@@ -20,30 +22,6 @@ export function Posts({ posts }: PostProps) {
         </main>
     );
 }
-
-// Post테이블 데이터 생성 테스트 코드
-// async function createPost() {
-//     const response = await fetch(`http://localhost:3001/api/post`, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//             title: "테스트 제목",
-//             content: "테스트 내용입니다.",
-//         }),
-//     });
-
-//     if (response.ok) {
-//         const newPost = await response.json();
-//         console.log("Post created:", newPost);
-//     } else {
-//         console.error("Failed to create post");
-//     }
-// }
-
-// 호출
-// createPost();
 
 // Post 테이블 데이터 가져오기 테스트 코드
 
@@ -67,20 +45,26 @@ export function Posts({ posts }: PostProps) {
 // getPosts();
 
 function List({ posts }: PostProps) {
+    const router = useRouter();
+    const handlePostLink = () => {
+        // router.push(<PostContent/>)
+    };
     return (
         <section className="flex flex-col font-mono text-sm">
             {posts.map((post) => (
-                <ul key={post.id} className="flex pt-3 border-b border-gray-500">
-                    <li className="flex">
-                        {new Date(post.createDate).toLocaleDateString("ko-KR", { year: "numeric" })}
-                    </li>
-                    <li className="flex grow pl-2">{post.title}</li>
-                    <li>
+                <Link key={post.id} href="/" passHref>
+                    <ul className="flex pt-3 border-b border-gray-500">
+                        <li className="flex">
+                            {new Date(post.createDate).toLocaleDateString("ko-KR", {
+                                year: "numeric",
+                            })}
+                        </li>
+                        <li className="flex grow pl-2">{post.title}</li>
                         {post.views.map((view) => (
                             <span key={view.id}>{view.count}</span>
                         ))}
-                    </li>
-                </ul>
+                    </ul>
+                </Link>
             ))}
         </section>
     );
