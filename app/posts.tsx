@@ -2,9 +2,8 @@
 
 import React from "react";
 
-import { IPost } from "./page";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { IPost } from "./type";
 
 interface PostProps {
     posts: IPost[];
@@ -12,7 +11,7 @@ interface PostProps {
 
 export function Posts({ posts }: PostProps) {
     return (
-        <main className="max-w-2xl m-auto font-mono text-sm ">
+        <main className="max-w-2xl m-auto text-sm ">
             <header className="text-gray-400 flex items-center gap-1 border-b py-1">
                 <span>date</span>
                 <span className="grow pl-2">title</span>
@@ -46,7 +45,7 @@ export function Posts({ posts }: PostProps) {
 
 function List({ posts }: PostProps) {
     return (
-        <section className="flex flex-col font-mono text-sm">
+        <section className="flex flex-col text-sm">
             {posts.map((post) => (
                 <Link key={post.id} href={`/links/${post.id}`} passHref>
                     <ul className="flex pt-3 border-b border-gray-500">

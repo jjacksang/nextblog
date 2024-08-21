@@ -1,11 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 import { GetServerSidePropsContext } from "next";
+import Header from "./header";
+import { IPost } from "@/app/type";
 
 const PostContent = async (context: GetServerSidePropsContext) => {
     const prisma = new PrismaClient();
     const { id } = context.params!;
 
-    const post = await prisma.post.findUnique({
+    const post: IPost | null = await prisma.post.findUnique({
         where: { id: Number(id) },
         include: { views: true },
     });
@@ -16,8 +18,8 @@ const PostContent = async (context: GetServerSidePropsContext) => {
 
     return (
         <article className="flex flex-col">
-            <span>{post.title}</span>
-            <span>{new Date(post.createDate).toLocaleDateString("ko-KR")}</span>
+            <Header post={post} />
+
             <span>{post.content}</span>
         </article>
     );

@@ -1,23 +1,8 @@
-import { GetServerSideProps } from "next";
 import { Posts } from "./posts";
 import { PrismaClient } from "@prisma/client";
+import { IPost } from "./type";
 
 const prisma = new PrismaClient();
-
-export interface IPost {
-    id: number;
-    title: string;
-    content: string;
-    createDate: Date;
-    update_at?: Date | null;
-    views: IView[];
-}
-
-interface IView {
-    id: number;
-    postId: number;
-    count: number;
-}
 
 // export const getServerSideProps: GetServerSideProps<Props> = async () => {
 //     const posts = await prisma.post.findMany();
