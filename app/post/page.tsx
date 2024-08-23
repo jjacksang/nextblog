@@ -1,6 +1,8 @@
 "use client";
 
+import { PrismaClient } from "@prisma/client";
 import { useState } from "react";
+import { POST } from "../api/post/route";
 
 export function Post() {
     const [title, setTitle] = useState<string>("");
@@ -13,6 +15,26 @@ export function Post() {
     const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
+
+    const onSubmit = async () => {
+        const res = await fetch("/api/post", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                title: title,
+                content: content,
+            }),
+        });
+
+        if (!res.ok) {
+            throw new Error();
+        }
+        console.log("post is success");
+        return res.json();
+    };
+
     return (
         <div className="flex flex-col gap-2">
             <div className="flex py-4">
@@ -20,7 +42,12 @@ export function Post() {
                     오늘은 어떤 글을 작성하실건가요?
                 </span>
 
-                <button className="border rounded-lg bg-white text-black p-4 py-1">작성</button>
+                <button
+                    onClick={onSubmit}
+                    className="border rounded-lg bg-white text-black p-4 py-1"
+                >
+                    포스팅
+                </button>
             </div>
             <div className="flex flex-col gap-1">
                 <label htmlFor="title" className="w-full">
