@@ -1,3 +1,5 @@
+"use client";
+
 import About from "./about.mdx";
 
 export default function Page() {

@@ -19,7 +19,7 @@ model Post {
 
 model View {
   id     Int  @id @default(autoincrement())
-  postId Int
+  postId Int  @unique
   count  Int  @default(1)
   post   Post @relation("PostToView", fields: [postId], references: [id])
 }
