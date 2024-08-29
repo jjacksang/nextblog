@@ -12,9 +12,10 @@ model Post {
   id         Int       @id @default(autoincrement())
   createDate DateTime  @default(now()) @db.Timestamptz(6)
   title      String    @default("")
-  content    String    @default("")
+  content    Json?
   updated_at DateTime? @updatedAt @db.Timestamptz(6)
   views      View[]    @relation("PostToView")
+
 }
 
 model View {

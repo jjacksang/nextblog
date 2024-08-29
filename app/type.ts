@@ -1,7 +1,7 @@
 export interface IPost {
     id: number;
     title: string;
-    content: string;
+    content: { markdown: string } | null;
     createDate: Date;
     update_at?: Date | null;
     views: IView[];

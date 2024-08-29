@@ -47,7 +47,7 @@ function List({ posts }: PostProps) {
     return (
         <section className="flex flex-col text-sm">
             {posts.map((post) => (
-                <Link key={post.id} href={`/links/${post.id}`} passHref>
+                <Link key={post.id} href={`/posts/${post.id}`} passHref>
                     <ul className="flex pt-3 border-b border-gray-500">
                         <li className="flex">
                             {new Date(post.createDate).toLocaleDateString("ko-KR", {

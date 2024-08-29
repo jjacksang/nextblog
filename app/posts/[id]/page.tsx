@@ -1,13 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { GetServerSidePropsContext } from "next";
 import Header from "./header";
-import { IPost } from "@/app/type";
 
 const PostContent = async (context: GetServerSidePropsContext) => {
     const prisma = new PrismaClient();
     const { id } = context.params!;
 
-    const post: IPost | null = await prisma.post.findUnique({
+    const post = await prisma.post.findUnique({
         where: { id: Number(id) },
         include: { views: true },
     });

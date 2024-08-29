@@ -1,12 +1,14 @@
 "use client";
 
-import { PrismaClient } from "@prisma/client";
 import { useState } from "react";
-import { POST } from "../api/post/route";
+
+import { useRouter } from "next/navigation";
+import { PrismaClient } from "@prisma/client";
 
 export function Post() {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
+    const router = useRouter();
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
@@ -24,14 +26,29 @@ export function Post() {
             },
             body: JSON.stringify({
                 title: title,
-                content: content,
+                content: { markdown: content },
             }),
         });
 
         if (!res.ok) {
             throw new Error();
         }
+        // const prisma = new PrismaClient();
+        // const res = await prisma.post.create({
+        //     data: {
+        //         title: title,
+        //         content: { markdown: content },
+        //         views: {
+        //             create: {
+        //                 count: 1,
+        //             },
+        //         },
+        //     },
+        // });
         console.log("post is success");
+        window.alert("작성이 완료되었습니다.");
+        router.push("/");
+
         return res.json();
     };
 
@@ -58,6 +75,7 @@ export function Post() {
                     onChange={onChangeTitle}
                     type="text"
                     className="rounded-lg pl-3 py-1 text-black"
+                    required
                 />
             </div>
             <div className="flex flex-col gap-1">
@@ -67,6 +85,7 @@ export function Post() {
                     value={content}
                     onChange={onChangeContent}
                     className="w-full h-[36rem] rounded-lg pl-3 py-1 text-black"
+                    required
                 />
             </div>
         </div>
