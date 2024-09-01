@@ -1,3 +1,5 @@
+"use client";
+
 import { IPost } from "@/app/type";
 
 interface HeaderProps {
@@ -6,6 +8,8 @@ interface HeaderProps {
 
 export default async function Header({ post }: HeaderProps) {
     const totalViews = post.views.reduce((total, view) => total + view.count, 0);
+
+    if (!post) return null;
 
     return (
         <header className="mb-4 flex">

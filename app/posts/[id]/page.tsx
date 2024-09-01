@@ -1,24 +1,23 @@
 import { PrismaClient } from "@prisma/client";
-import { GetServerSidePropsContext } from "next";
 import Header from "./header";
+import { MDXProvider } from "@mdx-js/react";
 
-const PostContent = async (context: GetServerSidePropsContext) => {
+const PostContent = async ({ params }: { params: { id: string | string[] } }) => {
     const prisma = new PrismaClient();
-    const { id } = context.params!;
-
+    console.log(params.id);
     const post = await prisma.post.findUnique({
-        where: { id: Number(id) },
+        where: { id: Number(params.id) },
         include: { views: true },
     });
 
     if (post) {
         const existView = await prisma.view.findUnique({
-            where: { id: Number(id) },
+            where: { id: Number(params.id) },
         });
 
         if (existView) {
             await prisma.view.update({
-                where: { postId: Number(id) },
+                where: { postId: Number(params.id) },
                 data: {
                     count: {
                         increment: 1,
@@ -28,17 +27,21 @@ const PostContent = async (context: GetServerSidePropsContext) => {
         }
     }
 
+    const MdxContent = post?.content as string;
+
     console.log(post);
     if (!post) {
         return <div>post content is null;</div>;
     }
 
     return (
-        <article className="flex flex-col">
-            <Header post={post} />
+        <MDXProvider>
+            <article className="flex flex-col">
+                <Header post={post} />
 
-            <span>{post.content}</span>
-        </article>
+                <MdxContent />
+            </article>
+        </MDXProvider>
     );
 };
 
