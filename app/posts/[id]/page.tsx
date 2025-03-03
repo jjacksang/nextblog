@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import Header from "./header";
-import { MDXProvider } from "@mdx-js/react";
+import Header from "../../components/post_detail/header";
+import { PostBody } from "@/app/components/post_detail/postBody";
 
 const PostContent = async ({ params }: { params: { id: string | string[] } }) => {
     const prisma = new PrismaClient();
@@ -35,13 +35,12 @@ const PostContent = async ({ params }: { params: { id: string | string[] } }) =>
     }
 
     return (
-        <MDXProvider>
+        <div>
+            <Header post={post} />
             <article className="flex flex-col">
-                <Header post={post} />
-
-                <MdxContent />
+                <PostBody post={post} />
             </article>
-        </MDXProvider>
+        </div>
     );
 };
 

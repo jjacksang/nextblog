@@ -11,8 +11,8 @@ interface PostProps {
 
 export function Posts({ posts }: PostProps) {
     return (
-        <main className="max-w-2xl m-auto text-sm ">
-            <header className="text-gray-400 flex items-center gap-1 border-b py-1">
+        <main className="max-w-2xl m-auto ">
+            <header className="text-gray-400 text-sm flex items-center gap-1 border-b py-1">
                 <span>date</span>
                 <span className="grow pl-2">title</span>
                 <span>views</span>
@@ -45,10 +45,10 @@ export function Posts({ posts }: PostProps) {
 
 function List({ posts }: PostProps) {
     return (
-        <section className="flex flex-col text-sm">
+        <section className="flex flex-col">
             {posts.map((post) => (
                 <Link key={post.id} href={`/posts/${post.id}`} passHref>
-                    <ul className="flex pt-3 border-b border-gray-500">
+                    <ul className="flex pt-3 border-b border-gray-500 text-sm">
                         <li className="flex">
                             {new Date(post.createDate).toLocaleDateString("ko-KR", {
                                 year: "numeric",

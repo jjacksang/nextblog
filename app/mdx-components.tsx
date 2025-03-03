@@ -1,4 +1,7 @@
 import type { MDXComponents } from "mdx/types";
+import { serialize } from "next-mdx-remote/serialize";
+
+const serializeMdx = () => {};
 
 export function useMDXComponent(component: MDXComponents): MDXComponents {
     return {
